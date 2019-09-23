@@ -2,7 +2,8 @@
 
 namespace App\Firebase;
 use Firebase\Auth\Token\Verifier;
-use App\Firebase\User;
+use App\Firebase\FirebaseUser;
+use Illuminate\Support\Str;
 
 class Guard
 {
@@ -11,15 +12,16 @@ class Guard
     {
         $this->verifier = $verifier;
     }
-    public function user($request)
+
+    public function firebaseUser($request)
     {
         $token = $request->bearerToken();
         try {
             $token = $this->verifier->verifyIdToken($token);
             
-            return new User($token);
+            return new FirebaseUser($token);
         }catch (\Exception $e) {
-            return $e;
+            return Str::contains($e->getMessage(), 'expired') ? ['error_code' => 498, 'error_msg' => 'Invalid Token'] : $e;
         }
     }
 }
