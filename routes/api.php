@@ -13,16 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/me', function (Request $request) {
-    $userData = $request->user();
-    $userId = $userData->token->getClaim('user_id');
-
-    $QRPath = 'qrcodes/' . $userId . '.svg';
-    QrCode::size(100)->generate($userId, '../public/' . $QRPath);
-    $reponseData = collect([
-        'userID' => $userId,
-        'QRCodeURL' => $QRPath
-    ]);
-    return $reponseData->toJSON();
-})->middleware(['auth:api']);
+Route::get('/me', 'UserController@userMe')->middleware(['auth:api']);
 

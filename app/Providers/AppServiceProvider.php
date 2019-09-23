@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Firebase\Auth\Token\Verifier;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // dd((openssl_get_cert_locations()));
+        Schema::defaultStringLength(191);
         $this->app->singleton(Verifier::class, function ($app) {
             return new Verifier(config('services.firebase.project_id'));
         });
