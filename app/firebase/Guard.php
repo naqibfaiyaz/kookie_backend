@@ -16,10 +16,9 @@ class Guard
         $token = $request->bearerToken();
         try {
             $token = $this->verifier->verifyIdToken($token);
-            // dd($token);
-            return new User($token->getClaims());
-        }
-        catch (\Exception $e) {
+            
+            return new User($token);
+        }catch (\Exception $e) {
             return $e;
         }
     }

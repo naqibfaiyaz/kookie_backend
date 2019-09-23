@@ -9,12 +9,14 @@ class User implements Authenticatable
      * @var array
      */
     private $claims;
+    public $token;
     /**
      * Creates a new authenticatable user from Firebase.
      */
-    public function __construct($claims)
+    public function __construct($token)
     {
-        $this->claims = $claims;
+        $this->token = $token;
+        $this->claims = $token->getClaims();
     }
     /**
      * Get the name of the unique identifier for the user.

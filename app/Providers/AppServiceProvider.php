@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Firebase\Auth\Token\Verifier;
-use Kreait\Firebase\JWT\Action\VerifyIdToken;
 
 class AppServiceProvider extends ServiceProvider
 {

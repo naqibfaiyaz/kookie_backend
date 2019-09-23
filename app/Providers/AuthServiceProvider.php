@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Auth::viaRequest('firebase', function ($request) {
             
-            dd(app(Guard::class)->user($request));
+            return app(Guard::class)->user($request);
         });
     }
 }
