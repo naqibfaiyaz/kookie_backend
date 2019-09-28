@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMerchantsTable extends Migration
+class CreateUserSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateMerchantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('merchants', function (Blueprint $table) {
+        Schema::create('user_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('merchant_name');
-            $table->integer('merchant_code');
-            $table->enum('point_type', ['0', '1']);
-            $table->text('description');
-            $table->string('loyalty_text');
-            $table->string('loyalty_icon');
+            $table->string('item');
+            $table->enum('value', ['0', '1']);
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateMerchantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merchants');
+        Schema::dropIfExists('user_settings');
     }
 }
