@@ -17,9 +17,8 @@ class UserController extends Controller
         
         $userId = $userData->token->getClaim('user_id');
 
-        $QRPath = 'qrcodes/' . $userId . '.svg';
-        $qrcode = new BaconQrCodeGenerator;
-        $qrcode->size(100)->generate($userId, '../public/' . $QRPath);
+        $tempPath = 'qrcodes/' . $userId . '.svg';
+        $QRPath = $this->generateQRCode($userId, $tempPath);
 
         $user = new User;
         
@@ -48,7 +47,20 @@ class UserController extends Controller
         $validate = Validator::make($this->user_code, $rules)->passes();
         
         return $validate ? $this->user_code['user_code'] : $this->genUserCode();
-        
-        
+    }
+
+    private function generateQRCode($userId, $tempPath){
+        $pathCheck = [
+            'qr_location' => $tempPath
+        ];
+
+        $qrcode = new BaconQrCodeGenerator;
+
+        $rules = ['qr_location' => 'unique:users'];
+        $validate = Validator::make($pathCheck, $rules)->passes();
+
+        $validate ? $qrcode->size(100)->generate($userId, '../public/' . $tempPath) : false;
+
+        return $pathCheck['qr_location'];
     }
 }
