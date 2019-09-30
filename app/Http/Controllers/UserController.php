@@ -17,7 +17,7 @@ class UserController extends Controller
         
         $userId = $userData->token->getClaim('user_id');
 
-        $tempPath = 'qrcodes/' . $userId . '.svg';
+        $tempPath = 'images/qrcodes/' . $userId . '.svg';
         $QRPath = $this->generateQRCode($userId, $tempPath);
 
         $user = new User;
@@ -63,4 +63,13 @@ class UserController extends Controller
 
         return $pathCheck['qr_location'];
     }
+
+    // public function createFakeMerchantData(){
+    //     // create a user and save them to the database
+    //     $user = factory(\App\merchantData::class, 9)->create(
+    //         [
+    //             'loyalty_icon' => "images/logo/marble_slab.png"
+    //         ]
+    //     );
+    // }
 }

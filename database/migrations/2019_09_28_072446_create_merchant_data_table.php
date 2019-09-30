@@ -16,7 +16,7 @@ class CreateMerchantDataTable extends Migration
         Schema::create('merchant_data', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('merchant_name');
-            $table->integer('merchant_code');
+            $table->integer('merchant_code')->unique();
             $table->enum('point_type', ['0', '1']);
             $table->text('description');
             $table->string('loyalty_text');
