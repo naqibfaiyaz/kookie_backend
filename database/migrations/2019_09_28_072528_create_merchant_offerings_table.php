@@ -13,14 +13,13 @@ class CreateMerchantOfferingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('merchant_offerings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('merchant_code');
-            $table->string('offerings');
-            $table->enum('point_type', ['0', '1']);
-            $table->integer('min_points_to_redeem');
-            $table->timestamps();
-        });
+        // Schema::create('merchant_offerings', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->integer('merchant_code');
+        //     $table->string('offerings');
+        //     $table->integer('min_points_to_redeem');
+        //     $table->timestamps();
+        // });
     }
 
     /**

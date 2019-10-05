@@ -15,7 +15,9 @@ use Illuminate\Http\Request;
 
 Route::get('/me', 'UserController@userMe')->middleware(['auth:api']);
 
-// Route::get('/fakeData', 'UserController@createFakeMerchantData');
+Route::get('/fakeData', 'UserController@createUserPoints');
 
-Route::get('/getAllCards', 'merchantDataController@getCardData');
+Route::get('/getAllCardData', 'merchantDataController@getAllCardData');
+
+Route::get('/getUserPoints', 'UserPointsController@getUserCardData')->middleware(['auth:api']);
 

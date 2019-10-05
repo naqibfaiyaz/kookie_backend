@@ -66,10 +66,29 @@ class UserController extends Controller
 
     // public function createFakeMerchantData(){
     //     // create a user and save them to the database
-    //     $user = factory(\App\merchantData::class, 9)->create(
+    //     $user = factory(\App\MerchantData::class, 2)->create(
+    //         // [
+    //         //     'merchant_name'=> 'Marble Slab Creamery', 
+    //         //     'merchant_image' => "images/logo/marble_slab.png",
+    //         //     'point_type'=> 'points',
+    //         //     'description'=> 'Get 10 Points for every 100 TK Spent at Marble Slab', 
+    //         //     'loyalty_text'=> 'Your Points', 
+    //         //     'loyalty_icon'=> null            
+    //         // ],
     //         [
-    //             'loyalty_icon' => "images/logo/marble_slab.png"
+    //             'merchant_name'=> 'Marble Slab Creamery', 
+    //             'merchant_image' => "images/logo/marble_slab.png",
+    //             'point_type'=> 'cone',
+    //             'description'=> 'Get one cone per icecream for mininum 130 BDT spent', 
+    //             'loyalty_text'=> 'until your next free coffee!', 
+    //             'loyalty_icon'=> 'images/icons/cone.png'
     //         ]
     //     );
     // }
+
+    public function createUserPoints(){
+        // create a user and save them to the database
+        $user = factory(\App\UserPoints::class, 1)->create(
+        );
+    }
 }

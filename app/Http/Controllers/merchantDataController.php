@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
-use App\merchantData;
+use App\MerchantData;
 
 class merchantDataController extends Controller
 {
-    public function getCardData(){
-        $cardData=merchantData::all();
+    private $getAllCardData;
+    
+    public function getAllCardData(){
+        $this->getAllCardData=MerchantData::all();
         
-        return $cardData;
+        return $this->getAllCardData;
     }
 }

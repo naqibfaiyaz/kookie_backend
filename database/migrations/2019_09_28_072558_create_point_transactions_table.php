@@ -15,7 +15,7 @@ class CreatePointTransactionsTable extends Migration
     {
         Schema::create('point_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('point_type', ['0', '1']);
+            $table->string('point_type');
             $table->integer('user_code');
             $table->integer('merchant_code');
             $table->integer('value');

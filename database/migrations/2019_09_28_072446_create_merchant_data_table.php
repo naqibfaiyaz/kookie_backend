@@ -13,16 +13,19 @@ class CreateMerchantDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('merchant_data', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('merchant_name');
-            $table->integer('merchant_code')->unique();
-            $table->enum('point_type', ['0', '1']);
-            $table->text('description');
-            $table->string('loyalty_text');
-            $table->string('loyalty_icon');
-            $table->timestamps();
-        });
+        // Schema::create('merchant_data', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('merchant_name');
+        //     $table->string('merchant_image');
+        //     $table->integer('merchant_code')->unique();
+        //     $table->string('point_type');
+        //     $table->text('description');
+        //     $table->string('loyalty_text');
+        //     $table->string('loyalty_icon')->nullable();
+        //     $table->string('offerings');
+        //     $table->integer('min_points_to_redeem');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -32,6 +35,6 @@ class CreateMerchantDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merchant_data');
+        // Schema::dropIfExists('merchant_data');
     }
 }
