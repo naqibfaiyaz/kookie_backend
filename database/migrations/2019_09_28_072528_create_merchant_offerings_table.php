@@ -29,6 +29,6 @@ class CreateMerchantOfferingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merchant_offerings');
+        // Schema::dropIfExists('merchant_offerings');
     }
 }

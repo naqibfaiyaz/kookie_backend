@@ -18,7 +18,8 @@ class UserController extends Controller
         $userId = $userData->token->getClaim('user_id');
 
         $tempPath = 'images/qrcodes/' . $userId . '.svg';
-        $QRPath = $this->generateQRCode($userId, $tempPath);
+        $userCode=$this->genUserCode();
+        $QRPath = $this->generateQRCode($userCode, $tempPath);
 
         $user = new User;
         
@@ -29,7 +30,7 @@ class UserController extends Controller
             [
                 'name' => $userData->token->getClaim('name'),
                 'email' => $userData->token->getClaim('email'),
-                'user_code' => $this->genUserCode(),
+                'user_code' => $userCode,
                 'qr_location' => $QRPath
             ]
         );

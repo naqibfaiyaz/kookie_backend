@@ -18,7 +18,7 @@ class CreateMerchantUserTable extends Migration
             $table->string('merchant_name');
             $table->string('merchant_email');
             $table->string('merchant_uid')->nullable();
-            $table->string('merchant_user_type', ['user', 'admin']);
+            $table->enum('merchant_user_type', ['user', 'admin']);
             $table->timestamps();
         });
     }
