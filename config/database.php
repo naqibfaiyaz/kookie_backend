@@ -39,7 +39,7 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
-            'database' => 'C:\Laragon\www\kookie_project\kookie_backend\database\kookie_core.sqlite',
+            'database' =>  env('DB_DATABASE', 'C:\Laragon\www\kookie_project\kookie_backend\database\kookie_core.sqlite'),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
