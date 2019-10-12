@@ -15,3 +15,8 @@ use Illuminate\Http\Request;
 
 // Route::get('/me', 'UserController@userMe')->middleware(['auth:api']);
 
+
+/* For Mechant Side */
+Route::get('/merchant/getUserData/{userCode}', 'MerchantUserController@getUserData');
+Route::get('/merchant/getMerchantData/{merchantUid}', 'MerchantUserController@getMerchantData');
+Route::post('/merchant/postRewardToUser', 'MerchantUserController@rewardToUser');
