@@ -65,7 +65,7 @@ class MerchantUserController extends Controller
             ]);
             $merchant = MerchantUser::where('merchant_uid', $validated['merchantUid'])
                     ->leftJoin('merchant_data', 'merchant_users.merchant_data_id', '=', 'merchant_data.id')
-                    ->select('merchant_code', 'point_type')->first()->toArray();
+                    ->select('merchant_code')->first()->toArray();
             $userPoint = UserPoint::where([
                 ['uid', $validated['userUid'] ],
                 ['merchant_code', $merchant['merchant_code'] ]
