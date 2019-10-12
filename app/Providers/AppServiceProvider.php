@@ -25,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if(config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
         // dd((openssl_get_cert_locations()));
         Schema::defaultStringLength(191);
         $this->app->singleton(Verifier::class, function ($app) {
