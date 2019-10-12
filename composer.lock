@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a00a8026e5fa818d4581afef505a6a8",
+    "content-hash": "e131932a2a6199354556fc87e940a7c4",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -752,6 +752,63 @@
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
+            "name": "kabbouchi/laravel-table-view",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KABBOUCHI/laravel-table-view.git",
+                "reference": "3602784ddaea4c5e84bd07753eedea32ad36906a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KABBOUCHI/laravel-table-view/zipball/3602784ddaea4c5e84bd07753eedea32ad36906a",
+                "reference": "3602784ddaea4c5e84bd07753eedea32ad36906a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/pagination": "~5|~6",
+                "illuminate/support": "~5|~6",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KABBOUCHI\\TableView\\TableViewServiceProvider"
+                    ],
+                    "aliases": {
+                        "TableView": "KABBOUCHI\\TableView\\Facades\\TableView"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KABBOUCHI\\TableView\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Georges KABBOUCHI",
+                    "email": "georges.kabbouchi@gmail.com"
+                }
+            ],
+            "description": "Laravel 5 Package for easily displaying table views for Eloquent Collections.",
+            "keywords": [
+                "laravel",
+                "table",
+                "table-view",
+                "view"
+            ],
+            "time": "2019-09-09T07:55:37+00:00"
+        },
+        {
             "name": "kreait/clock",
             "version": "1.0.1",
             "source": {
@@ -1068,6 +1125,63 @@
                 "psysh"
             ],
             "time": "2019-08-07T15:10:45+00:00"
+        },
+        {
+            "name": "laravel/ui",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "57e2361b55ed1bc80ff0b3258b9713626fb38a2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/57e2361b55ed1bc80ff0b3258b9713626fb38a2b",
+                "reference": "57e2361b55ed1bc80ff0b3258b9713626fb38a2b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "~5.8|^6.0",
+                "illuminate/filesystem": "~5.8|^6.0",
+                "illuminate/support": "~5.8|^6.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "time": "2019-10-11T12:16:52+00:00"
         },
         {
             "name": "lcobucci/jwt",

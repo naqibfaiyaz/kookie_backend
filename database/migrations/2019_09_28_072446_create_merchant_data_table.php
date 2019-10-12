@@ -22,7 +22,7 @@ class CreateMerchantDataTable extends Migration
             $table->text('description');
             $table->string('loyalty_text');
             $table->string('loyalty_icon')->nullable();
-            $table->string('offerings');
+            $table->string('food_type');
             $table->integer('min_points_to_redeem');
             $table->timestamps();
         });

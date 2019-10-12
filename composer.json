@@ -13,6 +13,7 @@
         "kreait/firebase-tokens": "^1.9",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "laravel/ui": "^1.1",
         "simplesoftwareio/simple-qrcode": "^2.0",
         "spatie/laravel-cors": "^1.6"
     },
