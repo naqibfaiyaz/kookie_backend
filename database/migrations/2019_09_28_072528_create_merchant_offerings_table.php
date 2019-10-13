@@ -16,7 +16,7 @@ class CreateMerchantOfferingsTable extends Migration
         Schema::create('merchant_offerings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('merchant_code');
-            $table->string('offerings');
+            $table->string('offerings_for_redeem');
             $table->integer('min_points_to_redeem_offer');
             $table->timestamps();
         });

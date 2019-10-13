@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MerchantData extends Model
 {
     protected $fillable = [
-        'merchant_name', 'merchant_image', 'merchant_code', 'point_type', 'description', 'loyalty_text', 'loyalty_icon', 'offerings', 'min_points_to_redeem'
+        'merchant_name', 'merchant_image', 'merchant_code', 'point_type', 'description', 'loyalty_text', 'loyalty_icon', 'food_type', 'min_points_to_redeem'
     ];
 
     public function UserPoints()

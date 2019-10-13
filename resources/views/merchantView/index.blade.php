@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <div class="p-3"><a href="{{ route('merchantData.create') }}" class="btn btn-success">Add new merchant</a></div>
     <table class="table table-striped"> 
         <thead class="table-dark">
             <tr>
@@ -23,12 +24,12 @@
                 <tr>
                     <td>{{ $data->id }}</td>
                     <td>{{ $data->merchant_name }}</td>
-                    <td><img src="{{ $data->merchant_image }}" style="width: 64px;"></td>
+                    <td><img src="../{{ $data->merchant_image }}" style="width: 64px;"></td>
                     <td>{{ $data->merchant_code }}</td>
                     <td>{{ $data->point_type }}</td>
                     <td>{{ $data->description }}</td>
                     <td>{{ $data->loyalty_text }}</td>
-                    <td><img src="{{ $data->loyalty_icon }}" style="width: 24px;"></td>
+                    <td><img src="../{{ $data->loyalty_icon }}" style="width: 24px;"></td>
                     <td>{{ $data->food_type }}</td>
                     <td>{{ $data->min_points_to_redeem }}</td>
                     <td><a href="{{ route('merchantData.edit', $data->id) }}" class="btn btn-primary">Edit</a></td>
