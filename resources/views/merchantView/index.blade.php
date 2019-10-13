@@ -13,7 +13,7 @@
                 <td>Description</td>
                 <td>Loyalty Text</td>
                 <td>Loyalty Icon</td>
-                <td>Offerings</td>
+                <td>Food Type</td>
                 <td>Min Points To Redeem</td>
                 <td>Edit</td>
             </tr>
@@ -29,7 +29,7 @@
                     <td>{{ $data->description }}</td>
                     <td>{{ $data->loyalty_text }}</td>
                     <td><img src="{{ $data->loyalty_icon }}" style="width: 24px;"></td>
-                    <td>{{ $data->offerings }}</td>
+                    <td>{{ $data->food_type }}</td>
                     <td>{{ $data->min_points_to_redeem }}</td>
                     <td><a href="{{ route('merchantData.edit', $data->id) }}" class="btn btn-primary">Edit</a></td>
                 </tr>
