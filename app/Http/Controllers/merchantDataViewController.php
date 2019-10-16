@@ -52,15 +52,25 @@ class merchantDataViewController extends Controller
         $attributes['merchant_image'] = $this->storeImage($attributes['merchant_image'], "logo");
         $attributes['loyalty_icon'] = $this->storeImage($attributes['loyalty_icon'], "icons");
         $attributes['merchant_code']=$this->generateMerchantCode($attributes['merchant_name'], $attributes['point_type']);
-        dd($attributes);
+        
         MerchantData::create($attributes);
 
         $attributes_for_offer_redeem=$request->validate([
             'offerings_for_redeem' => 'required|array',
             'min_points_to_redeem_offer' => 'required|array'
         ]);
-
-        dd($attributes_for_offer_redeem);
+        
+        $total_offers=sizeof( $attributes_for_offer_redeem['offerings_for_redeem']);
+        for($i=0; $i<$total_offers; $i++){
+            if($attributes_for_offer_redeem['offerings_for_redeem'][$i]){
+                $merchantOfferings[$i]['offerings_for_redeem']=$attributes_for_offer_redeem['offerings_for_redeem'][$i];
+                $merchantOfferings[$i]['min_points_to_redeem_offer']=$attributes_for_offer_redeem['min_points_to_redeem_offer'][$i];
+                $merchantOfferings[$i]['merchant_code']=$attributes['merchant_code'];
+            }
+        }
+        
+        MerchantOfferings::insert($merchantOfferings);
+        
         return redirect('/merchantData');
     }
 
@@ -84,8 +94,9 @@ class merchantDataViewController extends Controller
     public function edit($id)
     {
         $merchantData=MerchantData::findOrFail($id);
+        $merchantOffers=MerchantOfferings::where('merchant_code', $merchantData['merchant_code'])->get();
         
-        return view('merchantView.edit', compact('merchantData',$merchantData));
+        return view('merchantView.edit', compact(['merchantData','merchantOffers']));
     }
 
     /**
@@ -97,7 +108,8 @@ class merchantDataViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        $merchantData = MerchantData::findOrFail($id);
+        $merchantCode = $merchantData->pluck('merchant_code')[0];
         $attributes=$request->validate([
             'merchant_name' => 'required|string|max:255',
             'merchant_image' => 'nullable|image|mimes:png',
@@ -108,7 +120,28 @@ class merchantDataViewController extends Controller
             'food_type' => 'required|string|max:255',
             'min_points_to_redeem' => 'required|integer',
         ]);
-        dd($attributes);
+        
+        $merchantData->update($attributes);
+
+        $attributes_for_offer_redeem=$request->validate([
+            'offerings_for_redeem' => 'required|array',
+            'min_points_to_redeem_offer' => 'required|array'
+        ]);
+        
+        $total_offers=sizeof($attributes_for_offer_redeem['offerings_for_redeem']);
+        for($i=0; $i<$total_offers; $i++){
+            if($attributes_for_offer_redeem['offerings_for_redeem'][$i]){
+                $merchantOfferings = MerchantOfferings::where('offerings_for_redeem', $attributes_for_offer_redeem['offerings_for_redeem'][$i])->first();
+                if(!$merchantOfferings){
+                    $merchantOfferings=new MerchantOfferings;
+                };
+                $merchantOfferings->offerings_for_redeem = $attributes_for_offer_redeem['offerings_for_redeem'][$i];
+                $merchantOfferings->min_points_to_redeem_offer = $attributes_for_offer_redeem['min_points_to_redeem_offer'][$i];
+                $merchantOfferings->merchant_code = $merchantCode;
+                $merchantOfferings->save();
+            }
+        }
+        return redirect('/merchantData');
     }
 
     /**
@@ -117,9 +150,13 @@ class merchantDataViewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($data, Request $request)
     {
-        //
+        if(MerchantOfferings::where('merchant_code', $request->all()['merchant_code'])->where('offerings_for_redeem', $request->all()['offerings_for_redeem'])->delete()){
+            return response('Success', 200);
+        }else{
+            return response('Something went wrong', 406);
+        }
     }
 
     private function storeImage($image, $type){
@@ -138,6 +175,6 @@ class merchantDataViewController extends Controller
 
         $validate = Validator::make($merchant_code, $rules)->passes();
         
-        return $validate ? $merchant_code['merchant_code'] : $this->generateMerchantCode($name, $type);
+        return $validate ? $merchant_code['merchant_code'] : MerchantData::where('merchant_name', $name)->where('point_type', $type)->pluck('merchant_code')[0];
     }
 }
