@@ -102,7 +102,7 @@
                                             <input id="offerings_for_redeem" type="text" class="form-control mx-1 col-md-8" name="offerings_for_redeem[]" value={{ $offer['offerings_for_redeem'] }}>
                                             <input id="min_points_to_redeem_offer" type="text" class="form-control mx-1 col-md-2" name="min_points_to_redeem_offer[]" value={{ $offer['min_points_to_redeem_offer'] }}>
                                             
-                                            <img src="../../images/icons/minus.png" class="my-auto mx-4" style="width:16px; height: 21px;" onclick="remove_redeem_row({{ $key }})">
+                                            <img src="../../images/icons/minus.png" class="my-auto mx-4" style="width:16px; height: 21px;" onclick="remove_redeem_row({{ $key }}, 'true')">
                                         </div>
                                     @endforeach
                                 </div>
@@ -142,37 +142,31 @@
    }
 
    function add_redeem_row(){
-       nex_row_no=$('#redeem_offers .input-group').length+1;
-       console.log($('#redeem_offers .input-group').length);
-       html_row=' <div class="input-group col-md-11">' + 
+       curr_row_no=$('#redeem_offers .input-group').length;
+       next_row = curr_row_no+1
+       html_row=' <div class="input-group col-md-11 offer-group-' + curr_row_no + '">' + 
                    '<div class="col-md-1 my-auto">' +
-                       nex_row_no +
+                        next_row +
                    '</div>' +
                    '<input id="offerings_for_redeem" type="text" class="form-control mx-1 col-md-8" name="offerings_for_redeem[]">' +
                    '<input id="min_points_to_redeem_offer" type="text" class="form-control mx-1 col-md-2" name="min_points_to_redeem_offer[]">' + 
+                   '<img src="../../images/icons/minus.png" class="my-auto mx-4" style="width:16px; height: 21px;" onclick="remove_redeem_row(' + curr_row_no + ', \'dummy\')">' + 
                '</div>';
 
        $('#redeem_offers .repeat').append(html_row);
    }
 
-   function remove_redeem_row(id){
+   function remove_redeem_row(id, type){
     classId='#redeem_offers .offer-group-' + id ;
     offerings_for_redeem = $(classId + ' #offerings_for_redeem').val();
     merchant_code = $('#merchant_code').val();
 
+    console.log(id, classId);
     $(classId).remove();
 
-    deleteOffers();
-       
-    //    html_row=' <div class="input-group col-md-11">' + 
-    //                '<div class="col-md-1 my-auto">' +
-    //                    nex_row_no +
-    //                '</div>' +
-    //                '<input id="offerings_for_redeem" type="text" class="form-control mx-1 col-md-8" name="offerings_for_redeem[]">' +
-    //                '<input id="min_points_to_redeem_offer" type="text" class="form-control mx-1 col-md-2" name="min_points_to_redeem_offer[]">' + 
-    //            '</div>';
-
-    //    $('#redeem_offers .repeat').append(html_row);
+    if(type!='dummy'){
+        deleteOffers();
+    }
    }
 
    async function deleteOffers() {
