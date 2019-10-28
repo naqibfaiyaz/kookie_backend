@@ -15,7 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('merchantData', 'merchantDataViewController');
+Route::group(['middleware' => ['auth', 'admin']], function() {
+    Route::resource('merchantData', 'merchantDataViewController');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
