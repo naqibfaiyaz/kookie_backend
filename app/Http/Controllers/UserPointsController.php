@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserPoints;
+use App\User;
 
 class UserPointsController extends Controller
 {
@@ -12,16 +13,8 @@ class UserPointsController extends Controller
         $userData = $request->user();
         
         $userId = $userData->token->getClaim('user_id');
-        $this->allUserCardData = UserPoints::where('user_code', $userId)->get();
-
-        // $this->allUserCardData=$this->currentPointsArray();
-        // $this->allUserCardData=$this->rewardAvailable();
-
-        return $this->allUserCardData;
-    }
-
-    public function getUserPoints($userId){
-        $this->allUserCardData = UserPoints::where('user_code', $userId)->get();
+        $userCode=User::where('uid', $userId)->pluck('user_code');
+        $this->allUserCardData = UserPoints::where('user_code', $userCode)->get();
 
         // $this->allUserCardData=$this->currentPointsArray();
         // $this->allUserCardData=$this->rewardAvailable();
@@ -31,7 +24,7 @@ class UserPointsController extends Controller
 
     public function giveUserPoints(Request $request){
         $userData = new UserPoints;
-
+        $userData::truncate();
         $userData->point_type='cone';
         $userData->user_code='38005156';
         $userData->merchant_code='9e73ec8e984a2cb062114cb24acd9b0d';
