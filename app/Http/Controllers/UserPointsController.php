@@ -13,7 +13,7 @@ class UserPointsController extends Controller
         $userData = $request->user();
         
         $userId = $userData->token->getClaim('user_id');
-        $userCode=User::where('uid', $userId)->pluck('user_code');
+        $userCode=User::where('uid', $userId)->pluck('user_code')[0];
         $this->allUserCardData = UserPoints::where('user_code', $userCode)->get();
 
         // $this->allUserCardData=$this->currentPointsArray();
