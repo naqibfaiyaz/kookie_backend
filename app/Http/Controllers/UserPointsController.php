@@ -20,6 +20,15 @@ class UserPointsController extends Controller
         return $this->allUserCardData;
     }
 
+    public function getUserPoints($userId){
+        $this->allUserCardData = UserPoints::where('user_code', $userId)->get();
+
+        // $this->allUserCardData=$this->currentPointsArray();
+        // $this->allUserCardData=$this->rewardAvailable();
+
+        return $this->allUserCardData;
+    }
+
     public function giveUserPoints(Request $request){
         $userData = new UserPoints;
 
