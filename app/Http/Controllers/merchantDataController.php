@@ -15,7 +15,7 @@ class merchantDataController extends Controller
         foreach($this->getAllCardData as $key => $value){
             $this->getAllCardData[$key]->total_reward=count($value->MerchantOfferings()->where('min_points_to_redeem_offer', '<=', $value->UserPoints()->pluck('current_points')[0])->get());
         }
-        dd($this->getAllCardData);
+        
         return $this->getAllCardData;
     }
 }
