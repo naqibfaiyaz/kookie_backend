@@ -14,11 +14,6 @@ class MerchantData extends Model
     {
         return $this->hasMany('App\UserPoints', 'merchant_code', 'merchant_code');
     }
-
-    public function MerchantOfferings()
-    {
-        return $this->hasMany('App\MerchantOfferings', 'merchant_code', 'merchant_code');
-    }
     
     // public function merchantData()
     // {

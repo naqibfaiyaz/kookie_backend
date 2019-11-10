@@ -19,7 +19,7 @@ Route::get('/fakeData', 'UserController@createUserPoints');
 
 Route::get('/getAllCardData', 'merchantDataController@getAllCardData');
 
-Route::get('/getUserPoints', 'UserPointsController@getUserCardData')->middleware(['auth:api']);
+Route::get('/getUserPoints', 'UserPointsController@getUserPointsData')->middleware(['auth:api']);
 
 Route::get('/getAvailableRewards/{id}', 'UserPointsController@getAvailableRewards')->middleware(['auth:api']);
 

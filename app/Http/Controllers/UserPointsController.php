@@ -9,18 +9,21 @@ use App\MerchantOfferings;
 
 class UserPointsController extends Controller
 {
-    private $allUserCardData;
-    public function getUserCardData(Request $request){
+    private $allUserpointsData;
+
+    public function getUserPointsData(Request $request){
         $userData = $request->user();
         
         $userId = $userData->token->getClaim('user_id');
         $userCode=User::where('uid', $userId)->pluck('user_code')[0];
-        $this->allUserCardData = UserPoints::where('user_code', $userCode)->get();
+        $this->allUserpointsData = UserPoints::where('user_code', $userCode)->get();
 
-        // $this->allUserCardData=$this->currentPointsArray();
-        // $this->allUserCardData=$this->rewardAvailable();
-
-        return $this->allUserCardData;
+        
+        foreach($this->allUserpointsData as $key => $value){
+            $this->allUserpointsData[$key]->total_reward=count($value->MerchantOfferings()->where('min_points_to_redeem_offer', '<=', (int)$value->current_points)->get());
+        }
+        
+        return $this->allUserpointsData;
     }
 
     public function getRewardsCount(Request $request, $currentPoints){
