@@ -60,16 +60,7 @@ class merchantDataViewController extends Controller
             'min_points_to_redeem_offer' => 'required|array'
         ]);
         
-        $total_offers=sizeof( $attributes_for_offer_redeem['offerings_for_redeem']);
-        for($i=0; $i<$total_offers; $i++){
-            if($attributes_for_offer_redeem['offerings_for_redeem'][$i]){
-                $merchantOfferings[$i]['offerings_for_redeem']=$attributes_for_offer_redeem['offerings_for_redeem'][$i];
-                $merchantOfferings[$i]['min_points_to_redeem_offer']=$attributes_for_offer_redeem['min_points_to_redeem_offer'][$i];
-                $merchantOfferings[$i]['merchant_code']=$attributes['merchant_code'];
-            }
-        }
-        
-        MerchantOfferings::insert($merchantOfferings);
+        $this->createMerchantOfferings($attributes_for_offer_redeem, $attributes['merchant_code']);
         
         return redirect('/merchantData');
     }
@@ -109,7 +100,9 @@ class merchantDataViewController extends Controller
     public function update(Request $request, $id)
     {
         $merchantData = MerchantData::findOrFail($id);
-        $merchantCode = $merchantData->pluck('merchant_code')[0];
+        
+        $merchantCode = $merchantData->merchant_code;
+
         $attributes=$request->validate([
             'merchant_name' => 'required|string|max:255',
             'merchant_image' => 'nullable|image|mimes:png',
@@ -127,20 +120,11 @@ class merchantDataViewController extends Controller
             'offerings_for_redeem' => 'required|array',
             'min_points_to_redeem_offer' => 'required|array'
         ]);
+        // dd($attributes_for_offer_redeem);
+        $merchantOfferings = MerchantOfferings::where('merchant_code', $merchantCode)->delete();
+
+        $this->createMerchantOfferings($attributes_for_offer_redeem, $merchantCode);
         
-        $total_offers=sizeof($attributes_for_offer_redeem['offerings_for_redeem']);
-        for($i=0; $i<$total_offers; $i++){
-            if($attributes_for_offer_redeem['offerings_for_redeem'][$i]){
-                $merchantOfferings = MerchantOfferings::where('offerings_for_redeem', $attributes_for_offer_redeem['offerings_for_redeem'][$i])->first();
-                if(!$merchantOfferings){
-                    $merchantOfferings=new MerchantOfferings;
-                };
-                $merchantOfferings->offerings_for_redeem = $attributes_for_offer_redeem['offerings_for_redeem'][$i];
-                $merchantOfferings->min_points_to_redeem_offer = $attributes_for_offer_redeem['min_points_to_redeem_offer'][$i];
-                $merchantOfferings->merchant_code = $merchantCode;
-                $merchantOfferings->save();
-            }
-        }
         return redirect('/merchantData');
     }
 
@@ -176,5 +160,19 @@ class merchantDataViewController extends Controller
         $validate = Validator::make($merchant_code, $rules)->passes();
         
         return $validate ? $merchant_code['merchant_code'] : MerchantData::where('merchant_name', $name)->where('point_type', $type)->pluck('merchant_code')[0];
+    }
+
+    private function createMerchantOfferings($attributes_for_offer_redeem, $merchant_code){
+        $total_offers=sizeof( $attributes_for_offer_redeem['offerings_for_redeem']);
+        
+        for($i=0; $i<$total_offers; $i++){
+            if($attributes_for_offer_redeem['offerings_for_redeem'][$i]){
+                $merchantOfferings[$i]['offerings_for_redeem']=$attributes_for_offer_redeem['offerings_for_redeem'][$i];
+                $merchantOfferings[$i]['min_points_to_redeem_offer']=$attributes_for_offer_redeem['min_points_to_redeem_offer'][$i];
+                $merchantOfferings[$i]['merchant_code']=$merchant_code;
+            }
+        }
+        
+        return MerchantOfferings::insert($merchantOfferings) ? true : false;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\UserPoints;
 use App\User;
+use App\MerchantOfferings;
 
 class UserPointsController extends Controller
 {
@@ -18,6 +19,15 @@ class UserPointsController extends Controller
 
         // $this->allUserCardData=$this->currentPointsArray();
         // $this->allUserCardData=$this->rewardAvailable();
+
+        return $this->allUserCardData;
+    }
+
+    public function getRewardsCount(Request $request, $currentPoints){
+        $userData = $request->user();
+        
+        $userId = $userData->token->getClaim('user_id');
+        $userCode=MerchantOfferings::where('offerings_for_redeem', '<', $currentPoints)->get()->count();
 
         return $this->allUserCardData;
     }

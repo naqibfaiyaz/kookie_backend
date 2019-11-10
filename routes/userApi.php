@@ -21,5 +21,7 @@ Route::get('/getAllCardData', 'merchantDataController@getAllCardData');
 
 Route::get('/getUserPoints', 'UserPointsController@getUserCardData')->middleware(['auth:api']);
 
+Route::get('/getAvailableRewards/{id}', 'UserPointsController@getAvailableRewards')->middleware(['auth:api']);
+
 Route::get('/giveUserPoints', 'UserPointsController@giveUserPoints');
 

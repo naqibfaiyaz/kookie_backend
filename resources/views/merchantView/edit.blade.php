@@ -99,9 +99,8 @@
                                                 {{ $key+1 }}
                                             </div>
         
-                                            <input id="offerings_for_redeem" type="text" class="form-control mx-1 col-md-8" name="offerings_for_redeem[]" value={{ $offer['offerings_for_redeem'] }}>
-                                            <input id="min_points_to_redeem_offer" type="text" class="form-control mx-1 col-md-2" name="min_points_to_redeem_offer[]" value={{ $offer['min_points_to_redeem_offer'] }}>
-                                            
+                                            <input id="offerings_for_redeem" type="text" class="form-control mx-1 col-md-8" name="offerings_for_redeem[]" value="{{ $offer['offerings_for_redeem'] }}">
+                                            <input id="min_points_to_redeem_offer" type="text" class="form-control mx-1 col-md-2" name="min_points_to_redeem_offer[]" value="{{ $offer['min_points_to_redeem_offer'] }}">
                                             <img src="../../images/icons/minus.png" class="my-auto mx-4" style="width:16px; height: 21px;" onclick="remove_redeem_row({{ $key }}, 'true')">
                                         </div>
                                     @endforeach
