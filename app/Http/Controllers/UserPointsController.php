@@ -26,7 +26,7 @@ class UserPointsController extends Controller
         return $this->allUserpointsData;
     }
 
-    public function getRewardsCount(Request $request, $currentPoints){
+    public function getRedeemOfferings(Request $request, $currentPoints){
         $userData = $request->user();
         
         $userId = $userData->token->getClaim('user_id');
