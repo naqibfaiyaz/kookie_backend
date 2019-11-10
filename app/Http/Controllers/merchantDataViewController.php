@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\MerchantData;
 use App\MerchantOfferings;
 use Illuminate\Support\Facades\Validator;
+use Carbon\carbon;
 
 class merchantDataViewController extends Controller
 {
@@ -170,6 +171,7 @@ class merchantDataViewController extends Controller
                 $merchantOfferings[$i]['offerings_for_redeem']=$attributes_for_offer_redeem['offerings_for_redeem'][$i];
                 $merchantOfferings[$i]['min_points_to_redeem_offer']=$attributes_for_offer_redeem['min_points_to_redeem_offer'][$i];
                 $merchantOfferings[$i]['merchant_code']=$merchant_code;
+                $merchantOfferings[$i]['updated_at']=Carbon::now();
             }
         }
         
