@@ -20,7 +20,7 @@ class UserPointsController extends Controller
 
         
         foreach($this->allUserpointsData as $key => $value){
-            $this->allUserpointsData[$key]->total_reward=count($value->MerchantOfferings()->where('min_points_to_redeem_offer', '<=', (int)$value->current_points)->get());
+            $this->allUserpointsData[$key]->total_reward_eligible=count($value->MerchantOfferings()->where('min_points_to_redeem_offer', '<=', (int)$value->current_points)->get());
         }
         
         return $this->allUserpointsData;
