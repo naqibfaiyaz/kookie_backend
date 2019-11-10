@@ -26,13 +26,10 @@ class UserPointsController extends Controller
         return $this->allUserpointsData;
     }
 
-    public function getRedeemOfferings(Request $request, $currentPoints){
-        $userData = $request->user();
-        
-        $userId = $userData->token->getClaim('user_id');
-        $userCode=MerchantOfferings::where('offerings_for_redeem', '<', $currentPoints)->get()->count();
+    public function getRedeemOfferings($merchant_code){
+        $merchantOfferings=MerchantOfferings::where('merchant_code', $merchant_code)->get()->count();
 
-        return $this->allUserCardData;
+        return $merchantOfferings;
     }
 
     public function giveUserPoints(Request $request){
