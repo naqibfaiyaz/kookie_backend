@@ -27,7 +27,7 @@ class UserPointsController extends Controller
     }
 
     public function getRedeemOfferings($merchant_code){
-        $merchantOfferings=MerchantOfferings::where('merchant_code', $merchant_code)->get()->count();
+        $merchantOfferings=MerchantOfferings::where('merchant_code', $merchant_code);
 
         return $merchantOfferings;
     }
